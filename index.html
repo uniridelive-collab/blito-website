@@ -4,36 +4,286 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blito - Safe and Secure Ride Ecosystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; }
-        header { background-color: #4CAF50; color: white; padding: 2rem; text-align: center; }
-        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
-        h1 { margin-top: 0; }
-        .links { margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        a { color: #4CAF50; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
-        footer { text-align: center; padding: 2rem; font-size: 0.9rem; color: #777; }
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --bg-color: #0B0F19;
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+        
+        /* Background Glow Effects */
+        .glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(76,175,80,0.15) 0%, rgba(11,15,25,0) 70%);
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 5% 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeUp 1s ease-out;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #4CAF50 0%, #81C784 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+        }
+
+        /* App Badges */
+        .app-badges {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+        .badge:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+        .badge svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        .badge-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .badge-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-main {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Glassmorphism Card Feature */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 1000px;
+            margin: 4rem auto;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeUp 1.2s ease-out;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature-item h3 {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem 5%;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero { padding: 4rem 5% 2rem; }
+            .footer-content { flex-direction: column; text-align: center; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <img src="logo.png" alt="Blito Logo" style="width: 80px; height: 80px; border-radius: 16px; margin-bottom: 1rem;" />
-        <h1>Blito</h1>
-        <p>The smartest way to manage your daily commutes and enterprise rides</p>
-    </header>
-    <div class="container">
-        <p style="text-align: center; font-size: 1.2rem; line-height: 1.6;">
-            Blito provides a secure, real-time ecosystem connecting riders, drivers, and enterprise administrators for safe and efficient transportation.
-        </p>
-        
-        <div class="links">
-            <a href="/privacy.html">Privacy Policy</a>
-            <a href="/terms.html">Terms of Service</a>
-            <a href="/support.html">Support</a>
+    <div class="glow"></div>
+    
+    <nav>
+        <div class="nav-logo">
+            <img src="logo.png" alt="Blito Logo" />
+            Blito
         </div>
-    </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <h1>The Intelligent <br/><span>Ride Ecosystem</span></h1>
+            <p>Blito provides a secure, real-time platform connecting riders, drivers, and enterprise administrators for safe, efficient, and seamless transportation.</p>
+            
+            <div class="app-badges">
+                <a href="#" class="badge">
+                    <svg viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                    <div class="badge-text">
+                        <span class="badge-sub">Download on the</span>
+                        <span class="badge-main">App Store</span>
+                    </div>
+                </a>
+                <a href="#" class="badge">
+                    <svg viewBox="0 0 512 512"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+                    <div class="badge-text">
+                        <span class="badge-sub">GET IT ON</span>
+                        <span class="badge-main">Google Play</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="feature-card">
+            <h2 style="font-size: 2rem; margin-top: 0; margin-bottom: 2rem;">Why Choose Blito?</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Enterprise Ready</h3>
+                    <p>Designed for scale. Manage hundreds of corporate or educational commutes through our powerful admin portal.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Real-Time Tracking</h3>
+                    <p>Live GPS tracking and instant notifications give riders and trackers complete peace of mind during every journey.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Uncompromising Safety</h3>
+                    <p>From driver verification to emergency SOS features, safety is built into the core of the Blito ecosystem.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer>
-        &copy; 2026 Blito. All rights reserved.
+        <div class="footer-content">
+            <div class="nav-logo" style="font-size: 1.2rem;">
+                <img src="logo.png" alt="Blito Logo" style="width: 30px; height: 30px;" />
+                Blito
+            </div>
+            <div class="footer-links">
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms of Service</a>
+                <a href="/support.html">Support</a>
+            </div>
+            <div class="copyright">
+                &copy; 2026 Blito. All rights reserved.
+            </div>
+        </div>
     </footer>
 </body>
 </html>
